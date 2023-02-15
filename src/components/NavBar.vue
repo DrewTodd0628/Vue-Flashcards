@@ -3,17 +3,34 @@
             <RouterLink class="navBtn navLeft" :to="{ name: 'home' }"><span>Home</span></RouterLink>
             <RouterLink class="navBtn navLeft" :to="{ name: 'search' }"><span>Search</span></RouterLink>
             <RouterLink class="navBtn navLeft" :to="{ name: 'my-decks' }"><span>My Decks</span></RouterLink>
-            <button class="navBtn navRight logout" @click="logout"><span>Logout</span></button>
+            <button v-if="loggedIn" class="navBtn navRight logout" @click="logout"><span>Logout</span></button>
+            <RouterLink v-if="!loggedIn" class="navBtn navRight" :to="{ name: 'login' }"><span>Login</span></RouterLink>
     </nav>
 </template>
 
 <script>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { account } from '../composables/auth.js'
 
 export default {
     setup() {
         const router = useRouter()
+        const loggedIn = ref(false)
+
+        const sessionCheck = async () => {
+            try {
+            await account.get()
+            loggedIn.value = true
+            console.log("loggedIn: " )
+            } catch (err) {
+                loggedIn.value = false
+                console.log("loggedOut")
+            }
+        }
+
+        sessionCheck()
+
         const logout = async () => {
 
             try {
@@ -27,7 +44,8 @@ export default {
         }
 
         return {
-        logout
+        logout,
+        loggedIn
     }
     }
 
@@ -37,7 +55,7 @@ export default {
 
 <style>
     nav {
-        background-color: #38b9ff;
+        background-color: #cacaca;
         min-width: 100%;
         height: 3em;
         align-self: flex-start;
@@ -51,7 +69,7 @@ export default {
 
     .navBtn {
         transform: skew(20deg);
-        background-color: #38b9ff;
+        background-color: #cacaca;
         width: fit-content;
         height: 1.8em;
         border: 2px solid white;
@@ -66,7 +84,7 @@ export default {
 
     .navBtn > * {
         transform: skew(-20deg);
-        background-color: #00000000;
+        background-color: #00000000; 
         color: white;
         font-weight: bold;
         border: none;
@@ -80,5 +98,9 @@ export default {
     .navRight {
         margin-left: auto;
         margin-right: 0.8em;
+    }
+
+    .logout {
+        padding: 1em;
     }
 </style>

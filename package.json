@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "appwrite": "^10.2.0",
+    "appwrite-cli": "^1.1.1",
     "json-server": "^0.17.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"

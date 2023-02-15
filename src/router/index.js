@@ -5,6 +5,7 @@ import Register from "../views/Register.vue";
 import myDecks from "../views/myDecks.vue";
 import { account } from "../composables/auth.js";
 import Search from "../views/Search.vue";
+import Deck from "../views/Deck.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,12 +35,12 @@ const router = createRouter({
       name: "search",
       component: Search,
     },
-    // {
-    //   path: "/deck/:id",
-    //   name: "details",
-    //   component: Details,
-    //   props: true,
-    // },
+    {
+      path: "/deck/:id",
+      name: "deck",
+      component: Deck,
+      props: true,
+    },
   ],
 });
 
