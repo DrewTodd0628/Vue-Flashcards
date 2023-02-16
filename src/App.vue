@@ -47,4 +47,9 @@
     color: #38b9ff;
     text-decoration: none;
   }
+
+  h2 {
+    text-transform: uppercase;
+    color: rgb(147, 145, 145);
+  }
 </style>

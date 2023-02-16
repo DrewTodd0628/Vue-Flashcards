@@ -34,7 +34,7 @@ export default {
     }
 
     .under {
-        margin-top: -9em;
+        margin-top: -9em; 
     }
 
     .cardOne {

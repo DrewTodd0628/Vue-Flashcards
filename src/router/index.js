@@ -6,6 +6,7 @@ import myDecks from "../views/myDecks.vue";
 import { account } from "../composables/auth.js";
 import Search from "../views/Search.vue";
 import Deck from "../views/Deck.vue";
+import DeckEditor from "../views/DeckEditor.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
       path: "/my-decks",
       name: "my-decks",
       component: myDecks,
+    },
+    {
+      path: "/edit-deck",
+      name: "edit-deck",
+      component: DeckEditor,
     },
     {
       path: "/search",

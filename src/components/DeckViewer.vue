@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style scoped>
-    h2 {
+    .flashcard div h2 {
         background-color: #38b9ff;
         width: 100%;
         margin: 0px;
