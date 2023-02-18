@@ -3,39 +3,37 @@
         <div class="flashcard">
             <div class="front">
                 <h2>Question</h2>
-                <div>{{ flashcard["front"] }}</div>
+                <div ref="e">{{ question }}</div>
             </div>
             <div class="back">
                 <h2>Answer</h2>
-                <div>{{ flashcard["back"] }}</div>
+                <div>{{ answer }}</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, onMounted} from 'vue';
+import { ref } from 'vue';
 
 export default {
-    props: ["flashcard"],
+    props: ["question", "answer"],
 
-    setup() {
+    setup(props) {
         const flipped = ref(false)
         const container = ref(null)
+        const e = ref(null)
 
         const flip = () => {
             flipped.value = !flipped.value
             container.value.classList.toggle('flipped')
         }
-        onMounted(() => {
-        console.log(container.value)
-        })
-
 
         return {
             flip,
             flipped,
-            container
+            container,
+            e
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <RouterLink :to="{ name: 'deck', params: { id: deck['title'] } }">
+    <RouterLink :to="{ name: 'deck', params: { id: deck['id'] } }">
         <div class="deck">
             <div class="card cardOne"></div>
             <div class="card under cardTwo"></div>

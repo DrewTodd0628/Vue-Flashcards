@@ -36,9 +36,7 @@ export default {
     
     setup() {
         const decks = ref('')
-        // decks.value = JSON.parse('[         {             "title": "Countries",              "flashcards": [                 {                     "front": "Big Ben",                      "back": "UK"                  }             ]         },          {             "title": "Foods",             "flashcards": [                 {                     "front": "Fried Cake",                     "back": "Funnel Cakes"                  },                   {                  "front": "Baked custard with caramel",                  "back": "Flan"                  }             ]         } ]')
         decks.value = decksFile
-        console.log(decks.value)
 
         return {
             decks
