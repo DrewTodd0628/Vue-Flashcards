@@ -1,5 +1,5 @@
 <template>
-    <RouterLink :to="{ name: 'deck', params: { id: deck['id'] } }">
+    <RouterLink :to="{ name: 'deck', params: { id: deck['$id'] } }">
         <div class="deck">
             <div class="card cardOne"></div>
             <div class="card under cardTwo"></div>
@@ -16,14 +16,18 @@ import { RouterLink } from 'vue-router';
 
 export default {
     props: ["deck"],
-    components: { RouterLink }
+    components: { RouterLink },
+    
+    data() {
+        const color = this.deck["color"]
+        return {
+            color
+        }
+    }
 }
 </script>
 
 <style scoped>
-    .deck {
-    
-    }
 
     .card {
         background-color: white;
@@ -46,7 +50,7 @@ export default {
         transition: transform .1s;
     }
     .cardThree {
-        background-color: #38b9ff;
+        background-color: v-bind('color');
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -57,7 +61,7 @@ export default {
 
     .title {
         background-color: white;
-        color: #38b9ff;
+        color: v-bind('color');
         width: 100%;
         text-align: center;
         font-weight: bold;

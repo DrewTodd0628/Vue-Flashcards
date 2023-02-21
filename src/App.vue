@@ -52,4 +52,33 @@
     text-transform: uppercase;
     color: rgb(147, 145, 145);
   }
+
+  .btnTitle {
+    opacity: 0;
+    transition: opacity .2s;
+    position: relative;
+    top: -4em;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    min-width: 9em;
+    height: 1.7em;
+    background-color: #cacaca;
+    border-radius: 12px;
+    margin-left: -9.1em;
+  }
+
+  .btnContainer:hover > .btnTitle {
+      opacity: 1;
+  }
+  .btnTitle:before {
+    content: "";
+    position: absolute;
+    right: 40%;
+    bottom: -50%;
+    border-left: 0.8em solid transparent;
+    border-top: 1em solid #cacaca;
+    border-right: 0.8em solid transparent;
+  }
 </style>

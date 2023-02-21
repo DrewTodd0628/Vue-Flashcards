@@ -17,12 +17,11 @@
 import { ref } from 'vue';
 
 export default {
-    props: ["question", "answer"],
+    props: ["question", "answer", "color"],
 
     setup(props) {
         const flipped = ref(false)
         const container = ref(null)
-        const e = ref(null)
 
         const flip = () => {
             flipped.value = !flipped.value
@@ -32,8 +31,14 @@ export default {
         return {
             flip,
             flipped,
-            container,
-            e
+            container
+        }
+    },
+    
+    data() {
+        const color = this.color
+        return {
+            color
         }
     }
 }
@@ -41,7 +46,7 @@ export default {
 
 <style scoped>
     .flashcard div h2 {
-        background-color: #38b9ff;
+        background-color: v-bind('color');
         width: 100%;
         margin: 0px;
         border-radius: 15px 15px 0px 0px;

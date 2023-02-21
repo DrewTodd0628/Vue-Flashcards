@@ -58,9 +58,9 @@ router.beforeEach(async (to, from, next) => {
   try {
     const session = await account.getSession("current");
     to.meta.session = session;
-    console.log(
-      "ses: " + session.$id + " to.meta.ses: " + to.meta.session + " to: " + to
-    );
+    // console.log(
+    //   "ses: " + session.$id + " to.meta.ses: " + to.meta.session + " to: " + to
+    // );
 
     if (authRoutes.includes(name)) {
       return next({ name: "my-decks" });

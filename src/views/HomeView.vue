@@ -9,14 +9,13 @@
 <script>
 import { ref } from 'vue';
 import NavBar from '../components/NavBar.vue';
+import { Client, Functions } from "appwrite";
+import { client } from '../composables/auth';
 
 export default {
   components: { NavBar },
   
-  name: 'Home',
-  setup() {
-
-  }
+  name: 'Home'
 
 }
 </script>

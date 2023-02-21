@@ -3,8 +3,8 @@
     <h2>My Decks</h2>
 
     <div class="collection">
-        <div class="addDeckContainer">
-            <div class="addDeckTitle">Create New Deck</div>
+        <div class="addDeckContainer btnContainer">
+            <div class="btnTitle">Create New Deck</div>
             <div class="outer">
                 <RouterLink :to="{ name: 'edit-deck' }">
                     <div class="addDeck">
@@ -19,27 +19,42 @@
                 </RouterLink>
             </div>
         </div>
-        <div class="deck" v-for="deck in decks" :key="deck">
-            <DeckLink :deck="deck"/>
-        </div>
+            <div class="deck" v-for="deck in decks" :key="deck">
+                <DeckLink :deck="deck"/>
+            </div>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import NavBar from '../components/NavBar.vue';
 import DeckLink from '../components/DeckLink.vue';
 import decksFile from '../composables/data.json';
+import { Databases, Permission, Role } from 'appwrite';
+import { client, ID } from '../composables/auth';
+import { getDecks } from '../composables/flashcards';
 
 export default {
     components: { NavBar, DeckLink },
     
     setup() {
+        let decksRes = ""
         const decks = ref('')
-        decks.value = decksFile
+        const loading = ref(true)
+
+        watch(decks, () => {
+            loading.value = false
+        })
+
+        const fetchData = async () => {
+            decks.value = await getDecks()
+        }
+        fetchData()
 
         return {
-            decks
+            decksRes,
+            decks,
+            loading
         }
     }
 }
@@ -54,6 +69,7 @@ export default {
 	border-radius: 15px;
 	padding: 2em;
 	padding-right: 0em;
+    min-height: 9.8em;
 }
 
     .deck {
@@ -97,34 +113,8 @@ export default {
         transform: scale(1.1);
     }
 
-    .addDeckTitle {
-        opacity: 0;
-        transition: opacity .2s;
-        position: relative;
-        top: -50px;
+    .btnTitle {
         left: 9.1em;
-        color: white;
-        font-size: 0.8em;
-        font-weight: bold;
-        text-align: center;
-        min-width: 9em;
-        height: 1.7em;
-        background-color: #cacaca;
-        border-radius: 12px;
-        margin-left: -9.1em;
     }
-
-    .addDeckContainer:hover > .addDeckTitle {
-        opacity: 1;
-    }
-      .addDeckTitle:before {
-        content: "";
-        position: absolute;
-        right: 40%;
-        bottom: -50%;
-        border-left: 0.8em solid transparent;
-        border-top: 1em solid #cacaca;
-        border-right: 0.8em solid transparent;
-      }
 
 </style>
