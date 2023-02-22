@@ -1,4 +1,4 @@
-import { Databases, Functions, Permission, Role } from "appwrite";
+import { Databases, Functions, Permission, Query, Role } from "appwrite";
 import { client, ID } from "../composables/auth";
 
 const databases = new Databases(client);
@@ -32,10 +32,14 @@ const getDeck = async (id) => {
   return deck;
 };
 
-const getDecks = async () => {
+const getMyDecks = async () => {
   let decks = {};
+  const userId = await getUserId();
+
   await databases
-    .listDocuments("63ebf3afddae21e5a119", "63ebf3de54f3e0e0991c")
+    .listDocuments("63ebf3afddae21e5a119", "63ebf3de54f3e0e0991c", [
+      Query.equal("owner", [userId.toString()]),
+    ])
     .then(
       (response) => {
         decks = response.documents;
@@ -47,8 +51,48 @@ const getDecks = async () => {
   return decks;
 };
 
-const addDeck = async (title, flashcards) => {
-  const databases = new Databases(client);
+const getPublishedDecks = async (query) => {
+  let decks = {};
+
+  await databases
+    .listDocuments("63ebf3afddae21e5a119", "63ebf3de54f3e0e0991c", [
+      query ? Query.search("title", query) : Query.equal("published", true),
+      Query.equal("published", true),
+      Query.limit(5),
+    ])
+    .then(
+      (response) => {
+        decks = response.documents;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  return decks;
+};
+
+const getNextPublishedDecks = async (query, lastId) => {
+  let decks = {};
+
+  await databases
+    .listDocuments("63ebf3afddae21e5a119", "63ebf3de54f3e0e0991c", [
+      query ? Query.search("title", query) : Query.equal("published", true),
+      Query.equal("published", true),
+      Query.limit(5),
+      Query.cursorAfter(lastId),
+    ])
+    .then(
+      (response) => {
+        decks = response.documents;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  return decks;
+};
+
+const addDeck = async (title, color, publish, flashcards) => {
   const userId = await getUserId();
 
   await databases
@@ -59,10 +103,12 @@ const addDeck = async (title, flashcards) => {
       {
         owner: userId,
         title: title,
+        color: color,
+        published: publish,
         flashcards: JSON.stringify(flashcards),
       },
       [
-        Permission.read(Role.user(userId)),
+        Permission.read(publish === true ? Role.any() : Role.user(userId)),
         Permission.update(Role.user(userId)),
         Permission.delete(Role.user(userId)),
       ]
@@ -77,4 +123,10 @@ const addDeck = async (title, flashcards) => {
     );
 };
 
-export { getDeck, getDecks, addDeck };
+export {
+  getDeck,
+  getMyDecks,
+  getPublishedDecks,
+  getNextPublishedDecks,
+  addDeck,
+};

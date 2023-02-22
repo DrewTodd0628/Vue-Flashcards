@@ -14,7 +14,6 @@
 	align-self: flex-start;
 	font-family: "UD Digi KyoKasho NK-R";
 	font-size: 3em;
-	/* font-family: "Segoe Print"; */
 	font-weight: bolder;
 	color: white;
 	width: 100%;
@@ -80,5 +79,29 @@
     border-left: 0.8em solid transparent;
     border-top: 1em solid #cacaca;
     border-right: 0.8em solid transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(195, 195, 195); 
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(147, 145, 145);; 
+  }
+
+  .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 </style>

@@ -29,16 +29,21 @@ export default {
 
 <style scoped>
 
+    .deck {
+        width: 8em;
+        height: 10em;
+    }
+
     .card {
         background-color: white;
-        width: 7.5em;
-        height: 9.5em;
+        width: 100%;
+        height: 100%;
         box-shadow: 0px 0px 8px #cbcbcb;
         border-radius: 10px;
     }
 
     .under {
-        margin-top: -9em; 
+        margin-top: -118%;
     }
 
     .cardOne {
@@ -65,7 +70,7 @@ export default {
         width: 100%;
         text-align: center;
         font-weight: bold;
-        height: 4em;
+        height: 40%;
         display: flex;
         flex-direction: column;
         justify-content: center;

@@ -32,7 +32,7 @@ import DeckLink from '../components/DeckLink.vue';
 import decksFile from '../composables/data.json';
 import { Databases, Permission, Role } from 'appwrite';
 import { client, ID } from '../composables/auth';
-import { getDecks } from '../composables/flashcards';
+import { getMyDecks } from '../composables/flashcards';
 
 export default {
     components: { NavBar, DeckLink },
@@ -47,7 +47,7 @@ export default {
         })
 
         const fetchData = async () => {
-            decks.value = await getDecks()
+            decks.value = await getMyDecks()
         }
         fetchData()
 
